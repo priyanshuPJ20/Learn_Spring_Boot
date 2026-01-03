@@ -1,29 +1,50 @@
 package com.priyanshu.LearningRESTAPIs.controller;
 
+import com.priyanshu.LearningRESTAPIs.dto.AddStudentRequestDto;
 import com.priyanshu.LearningRESTAPIs.dto.StudentDto;
-import com.priyanshu.LearningRESTAPIs.entity.Student;
-import com.priyanshu.LearningRESTAPIs.repository.StudentRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.priyanshu.LearningRESTAPIs.service.StudentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/students")
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    private final StudentService studentService;
 
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+
+
+    @GetMapping
+    public ResponseEntity<List<StudentDto>> getAllStudent(){
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudents());
     }
 
-    @GetMapping("/student1")
-    public List<Student> getStudent(){
-        return studentRepository.findAll();
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id){
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
-    @GetMapping("/student1/{id}")
-    public StudentDto getStudentById(){
-        return new StudentDto(5L,"Priyanshu","pj@gmail.com");
+    @PostMapping
+    public ResponseEntity<StudentDto> createNewStudent(@RequestBody AddStudentRequestDto addStudentRequestDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createNewStudent(addStudentRequestDto));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAStudent(@PathVariable long id){
+        studentService.deleteStudentById(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id,@RequestBody AddStudentRequestDto addStudentRequestDto){
+        return ResponseEntity.ok(studentService.updateStudent(id,addStudentRequestDto));
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<StudentDto> updatePartialStudent(@PathVariable Long id, @RequestBody Map<String,Object> updates){
+        return ResponseEntity.ok(studentService.updatePartialStudent(id,updates));
     }
 }
