@@ -1,5 +1,6 @@
 package com.priyanshu.hospitalManagement;
 
+import com.priyanshu.hospitalManagement.dto.BloodGroupCountResponseEntity;
 import com.priyanshu.hospitalManagement.entity.Patient;
 import com.priyanshu.hospitalManagement.repository.PatientRepository;
 import com.priyanshu.hospitalManagement.sevice.PatientService;
@@ -30,9 +31,29 @@ public class PatientTests {
 
     @Test
     public void testTransactionMethods(){
-        Patient patient=patientService.getPatientById(1L);
+//        Patient patient=patientRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException("Patient not" +
+//                "found with id: 1"));
 
-        System.out.println(patient);
+      //  Patient patient=patientRepository.findByName("Diya Patel");
+        //List<Patient> patientList=patientRepository.findByBirthDateOrEmail(LocalDate.of(1993,7,11),"neha@gmail.com");
+
+//        List<Patient> patientList= patientRepository.findAllPatients();
+//        for(Patient patient:patientList) {
+//            System.out.println(patient);
+//        }
+//
+//        List<Object[]> bloodGroupList= patientRepository.countEachBloodGrouptype();
+//        for (Object[] objects:bloodGroupList){
+//            System.out.println(objects[0]+" "+objects[1]);
+//        }
+
+//        int rowsUpdated = patientRepository.updateNameWithId("Arav Sharma",1L);
+//        System.out.println(rowsUpdated);
+
+        List<BloodGroupCountResponseEntity> bloodGroupList= patientRepository.countEachBloodGroupType();
+        for (BloodGroupCountResponseEntity bloodGroupCountResponse:bloodGroupList){
+           System.out.println(bloodGroupCountResponse);
+        }
     }
 }
 

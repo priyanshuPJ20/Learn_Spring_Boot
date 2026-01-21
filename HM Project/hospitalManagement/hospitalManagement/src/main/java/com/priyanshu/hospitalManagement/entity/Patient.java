@@ -1,10 +1,10 @@
 package com.priyanshu.hospitalManagement.entity;
 
+import com.priyanshu.hospitalManagement.entity.type.BloodGroupType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -33,7 +33,7 @@ public class Patient {
     @Column(nullable = false,length = 40)
     private String name;
 
-    @ToString.Exclude
+    //@ToString.Exclude
     private LocalDate birthDate;
 
     @Column(unique = true,nullable = false)
@@ -45,5 +45,6 @@ public class Patient {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    private String bloodGroup;
+    @Enumerated(EnumType.STRING)
+    private BloodGroupType bloodGroup;
 }
