@@ -1,12 +1,14 @@
 package com.priyanshu.hospitalManagement;
 
-import com.priyanshu.hospitalManagement.dto.BloodGroupCountResponseEntity;
 import com.priyanshu.hospitalManagement.entity.Patient;
 import com.priyanshu.hospitalManagement.repository.PatientRepository;
 import com.priyanshu.hospitalManagement.sevice.PatientService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -37,10 +39,11 @@ public class PatientTests {
       //  Patient patient=patientRepository.findByName("Diya Patel");
         //List<Patient> patientList=patientRepository.findByBirthDateOrEmail(LocalDate.of(1993,7,11),"neha@gmail.com");
 
-//        List<Patient> patientList= patientRepository.findAllPatients();
-//        for(Patient patient:patientList) {
-//            System.out.println(patient);
-//        }
+        Page<Patient> patientList= patientRepository.findAllPatients(PageRequest.of(0,2, Sort.by("name")));
+
+        for(Patient patient:patientList) {
+            System.out.println(patient);
+        }
 //
 //        List<Object[]> bloodGroupList= patientRepository.countEachBloodGrouptype();
 //        for (Object[] objects:bloodGroupList){
@@ -50,10 +53,10 @@ public class PatientTests {
 //        int rowsUpdated = patientRepository.updateNameWithId("Arav Sharma",1L);
 //        System.out.println(rowsUpdated);
 
-        List<BloodGroupCountResponseEntity> bloodGroupList= patientRepository.countEachBloodGroupType();
-        for (BloodGroupCountResponseEntity bloodGroupCountResponse:bloodGroupList){
-           System.out.println(bloodGroupCountResponse);
-        }
+//        List<BloodGroupCountResponseEntity> bloodGroupList= patientRepository.countEachBloodGroupType();
+//        for (BloodGroupCountResponseEntity bloodGroupCountResponse:bloodGroupList){
+//           System.out.println(bloodGroupCountResponse);
+//        }
     }
 }
 
