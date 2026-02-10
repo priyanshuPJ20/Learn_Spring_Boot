@@ -39,7 +39,7 @@ public class PatientTests {
       //  Patient patient=patientRepository.findByName("Diya Patel");
         //List<Patient> patientList=patientRepository.findByBirthDateOrEmail(LocalDate.of(1993,7,11),"neha@gmail.com");
 
-        Page<Patient> patientList= patientRepository.findAllPatients(PageRequest.of(0,2, Sort.by("name")));
+        Page<Patient> patientList= patientRepository.findAllPatients(PageRequest.of(1,2, Sort.by("name")));
 
         for(Patient patient:patientList) {
             System.out.println(patient);
