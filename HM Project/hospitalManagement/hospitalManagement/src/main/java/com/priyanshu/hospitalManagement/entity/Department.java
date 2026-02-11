@@ -33,6 +33,6 @@ public class Department {
     )
     private Set<Doctor> doctors = new HashSet<>();
 
-    @ManyToMany(mappedBy = "doctors")
-    private Set<Department> departments=new HashSet<>();
+//    @ManyToMany(mappedBy = "doctors")
+//    private Set<Department> departments=new HashSet<>();
 }
