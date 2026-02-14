@@ -1,13 +1,16 @@
 package com.priyanshu.hospitalManagement;
 
+import com.priyanshu.hospitalManagement.entity.Appointment;
 import com.priyanshu.hospitalManagement.entity.Insurance;
 import com.priyanshu.hospitalManagement.entity.Patient;
-import com.priyanshu.hospitalManagement.sevice.InsuranceService;
+import com.priyanshu.hospitalManagement.service.AppointmentService;
+import com.priyanshu.hospitalManagement.service.InsuranceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 public class InsuranceTests {
@@ -15,6 +18,8 @@ public class InsuranceTests {
     @Autowired
     private InsuranceService insuranceService;
 
+    @Autowired
+    private AppointmentService appointmentService;
 
     @Test
     public void testInsurance(){
@@ -27,5 +32,23 @@ public class InsuranceTests {
         Patient patient = insuranceService.assignInsuranceToPatient(insurance,1L);
         System.out.println(patient);
 
+        var newPatient = insuranceService.disassociateInsuranceFromPatient(patient.getId());
+
+        System.out.println(newPatient);
+    }
+
+    @Test
+    public void testCreateAppointment(){
+        Appointment appointment = Appointment.builder()
+                .appointmentTime(LocalDateTime.of(2025,11,1,14,0))
+                .reason("Cancer")
+                .build();
+
+        var newAppointment = appointmentService.createNewAppointment(appointment,1L,2L);
+        System.out.println(newAppointment);
+
+       var updatedAppointment =  appointmentService.reAssignAppointmentToAnotherDoctor(newAppointment.getId(),3L);
+
+        System.out.println(updatedAppointment);
     }
 }

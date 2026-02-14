@@ -1,4 +1,4 @@
-package com.priyanshu.hospitalManagement.sevice;
+package com.priyanshu.hospitalManagement.service;
 
 import com.priyanshu.hospitalManagement.entity.Patient;
 import com.priyanshu.hospitalManagement.repository.PatientRepository;

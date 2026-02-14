@@ -1,4 +1,4 @@
-package com.priyanshu.hospitalManagement.sevice;
+package com.priyanshu.hospitalManagement.service;
 
 import com.priyanshu.hospitalManagement.entity.Insurance;
 import com.priyanshu.hospitalManagement.entity.Patient;
@@ -27,6 +27,16 @@ public class InsuranceService {
         patient.setInsurance(insurance);
         insurance.setPatient(patient);
 
+        return patient;
+    }
+
+    @Transactional
+    public Patient disassociateInsuranceFromPatient(Long patientId){
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
+
+
+        patient.setInsurance(null);
         return patient;
     }
 }
